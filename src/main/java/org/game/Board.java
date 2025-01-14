@@ -3,13 +3,19 @@ package org.game;
 import org.game.enums.Color;
 import org.game.enums.Type;
 import org.game.iterators.boardIterator;
+import org.game.pieces.King;
 import org.game.pieces.Pawn;
 import org.game.records.Coord;
 import org.game.records.Move;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class Board {
 
-    private final Piece[][] cells;
+    private Piece[][] cells;
     private static final Coord boardShape = new Coord(8, 8);
 
     public Board() {
@@ -29,6 +35,23 @@ public class Board {
 
         // Estado inicial
         this.setBoard(boardDraw);
+    }
+
+    public Board clone() {
+
+        Board board = new Board();
+
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+
+                if (this.cells[i][j] == null)
+                    board.cells[i][j] = null;
+                else
+                    board.cells[i][j] = this.cells[i][j].clone();
+            }
+        }
+
+        return board;
     }
 
     public static boolean isValidCoord(Coord coord) {
@@ -108,25 +131,35 @@ public class Board {
 
     // CHECK
 
-    public boolean isInCheck(Color player) {
+    public List<Color> inCheck() {
 
-        // TODO: Primeiro tem que encontra o rei...
-        // Tá ficando chato ter que olhar todo o tabuleiro
+        List<Color> colorsInCheck = new ArrayList<>();
+
+        // Encontrar os rei
+        Map<Color, Coord> kingsCoords = new HashMap<>();
 
         boardIterator iter = new boardIterator();
         while (iter.hasNext()) {
             Coord coord = iter.next();
             Piece piece = this.getPiece(coord);
 
-            if (piece != null && piece.getColor() != player) {
-
-                // Para cada move possível de tal peça
-                    // TODO: Método de cada peça, valid coord já feito
-                // Alguma tem como destino a posição do rei?
-            }
+            if (piece instanceof King)
+                kingsCoords.put(piece.getColor(), coord);
         }
 
-        return false;
+        // Verificar se estão em cheque
+        iter = new boardIterator();
+        while (iter.hasNext()) {
+            Coord coord = iter.next();
+            Piece piece = this.getPiece(coord);
+
+            // Listar moves possíveis
+            // Verificar moves possíveis
+            // Verificar se algum move possível captura o rei
+            // Listar a cor
+        }
+
+        return colorsInCheck;
     }
 
     // CASTLING

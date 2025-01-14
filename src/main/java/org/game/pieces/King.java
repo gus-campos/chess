@@ -17,4 +17,8 @@ public class King extends Piece {
     public boolean isValidMove(Move move) {
         return (move.isDiagonalMove() || move.isCrossMove()) && move.distance() == 1;
     }
+
+    public Piece clone() {
+        return new King(this.color);
+    }
 }

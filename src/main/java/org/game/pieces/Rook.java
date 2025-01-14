@@ -18,4 +18,8 @@ public class Rook extends Piece {
 
         return move.isCrossMove();
     }
+
+    public Piece clone() {
+        return new Rook(this.color);
+    }
 }

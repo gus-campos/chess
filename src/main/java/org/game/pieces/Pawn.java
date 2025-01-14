@@ -73,6 +73,10 @@ public class Pawn extends Piece {
     }
 
     private boolean isCapturing(Coord coord) {
+
+        if (this.board == null)
+            throw  new RuntimeException("This pawn has not assigned board");
+
         return this.board.getPiece(coord) != null;
     }
 
@@ -82,5 +86,9 @@ public class Pawn extends Piece {
 
     public boolean getEnPassantFlag() {
         return this.enPassantFlag;
+    }
+
+    public Piece clone() {
+        return new Pawn(this.color, this.board);
     }
 }

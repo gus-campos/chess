@@ -18,4 +18,8 @@ public class Queen extends Piece {
 
         return move.isDiagonalMove() || move.isCrossMove();
     }
+
+    public Piece clone() {
+        return new Queen(this.color);
+    }
 }

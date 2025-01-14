@@ -4,6 +4,7 @@ import org.game.enums.Type;
 import org.game.pieces.*;
 import org.game.records.Move;
 
+import javax.lang.model.element.PackageElement;
 import java.util.Map;
 
 public abstract class Piece {
@@ -42,11 +43,12 @@ public abstract class Piece {
         return this.type == piece.type && this.color == piece.color;
     }
 
+    public abstract Piece clone();
+
     public static Piece ofSymbol(Character symbol, Board board) {
 
-        if (symbol == ' ') {
+        if (symbol == ' ')
             return null;
-        }
 
         Type type = Piece.SYMBOLS_TYPES.get(Character.toUpperCase(symbol));
         Color color = Piece.symbolColor(symbol);

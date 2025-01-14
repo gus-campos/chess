@@ -17,4 +17,8 @@ public class Bishop extends Piece {
     public boolean isValidMove(Move move) {
         return move.isDiagonalMove();
     }
+
+    public Piece clone() {
+        return new Bishop(this.color);
+    }
 }

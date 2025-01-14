@@ -27,4 +27,8 @@ public class Knight extends Piece {
 
         return (moveLength == 2 && moveHeight == 1) || (moveLength == 1 && moveHeight == 2);
     }
+
+    public Piece clone() {
+        return new Knight(this.color);
+    }
 }
